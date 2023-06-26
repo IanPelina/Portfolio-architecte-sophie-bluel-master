@@ -48,6 +48,10 @@ table {
 }
 /** end reset css**/
 body {
+	background-color: #FFFEF8;
+}
+
+.main-container { /*changer en main-container pour avoir la barre et le footer qui plus large que le reste */
 	max-width: 1140px;
 	margin:auto;
 	font-family: 'Work Sans' ;
@@ -91,6 +95,7 @@ nav ul {
 
 }
 nav li {
+	cursor: pointer;
 	padding: 0 10px;
 	font-size: 1.2em;
 }
@@ -98,6 +103,12 @@ nav li {
 li:hover {
 	color: #B1663C;
 }
+/*css pour le lien login*/
+.nav__link {
+	text-decoration: none;
+	color: black;
+}
+
 #introduction {
 	display: flex;
 	align-items: center;
@@ -137,9 +148,33 @@ li:hover {
 	width: 100%;
 
 }
+/************************************************************Css Categories (test)***********************************************************/
+.categories {
+	text-align: center;
+}
+.categories input {
+	border: 1px solid #1D6154;
+	border-radius: 60px;
+	color: #1D6154;
+	background-color: white;
+	font-family: 'Syne';
+	font-weight: 700;
+	margin : 2em auto ;
+	text-align: center;
+	box-sizing: border-box;
+	height: 50px;
+	font-size: 1.2em;
+	min-width: 100px;
+	&:hover {
+		color: white;
+		background-color: #1D6154;
+		cursor: pointer;
+	}
+}
+/*************************************************Fin du Css categories(test)*********************************************************************/
 #contact {
 	width: 50%;
-margin: auto;
+	margin: 0 auto 355px; /*ajout de 0 et 355px pour respecter la maquette*/
 }
 #contact > * {
 	text-align: center;
@@ -180,9 +215,79 @@ input[type="submit"]{
 	border-radius: 60px ;
 }
 
-footer nav ul {
+#footer-nav {
 	display: flex;
 	justify-content: flex-end;
-	margin: 2em
+	margin: 2em;
+	font-family: 'Work Sans';
+	position: relative;
+	background-color: white;
 }
 
+#footer-nav li {
+	position: absolute;
+	right: 107px;
+}
+
+/***************************************************Css Login*************************************************************************/
+
+#error-message { 
+	margin-top: 20px;
+	text-align: center;
+	color: red;
+}
+
+.login-form-submit {
+	cursor: pointer;
+}
+
+form + p {
+	cursor: pointer;
+	color: #3D3D3D;
+	text-decoration: underline;
+}
+
+form + p:hover {
+	color: #B1663C;
+}
+
+.login-footer {
+	display: flex;
+	justify-content: flex-end;
+}
+
+/***********************************************************CSS Edit mode******************************************************************/
+
+.editbarr {
+	height: 59px;
+	background-color: black;
+	display: flex;
+	gap: 25px;
+	justify-content: center;
+	align-items: center;
+	color: white;
+	font-family: 'Work Sans' ;
+}
+
+.edit-logo i {
+	margin-right: 10px;
+}
+
+.edit-btn {
+	border-radius: 60px;
+	background-color: #FFFFFF;
+	color: black;
+	padding: 11px 23px;
+}
+ 
+.intro-logo {
+	margin: 13px 0 0 57px;
+}
+ 
+.portfolio-title-and-logo {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: baseline;
+	gap: 30px;
+}
