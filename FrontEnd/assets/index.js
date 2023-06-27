@@ -37,43 +37,55 @@ fetch("http://localhost:5678/api/categories")
   .then(categories => {
     // Parcourir les catégories et créer les boutons correspondants
     for (let categorie of categories) {
-      document.querySelector(".categories").innerHTML += createInput(categorie.name, categorie.categoryId);
+      const categoriesContainer = document.querySelector(".categories");
+      if (categoriesContainer) {
+        categoriesContainer.innerHTML += createInput(categorie.name, categorie.categoryId);
+      }
     }
 
     // Sélectionner le bouton "Tous"
     const allButton = document.querySelector(".categories input[value='Tous']");
 
     // Ajouter un écouteur d'événement au bouton "Tous"
-    allButton.addEventListener("click", function () {
-      document.querySelector(".gallery").innerHTML = "";
-      for (let work of works) {
-        document.querySelector(".gallery").innerHTML += createFigure(work.imageUrl, work.title);
-      }
-    });
-
-    // Sélectionner les boutons de catégorie
-    const categoryButtons = document.querySelectorAll(".categories input[type='button']:not([value='Tous'])");
-
-    // Ajouter les valeurs des attributs data-category-id aux boutons
-    const categoryIds = [1, 2, 3]; // Les valeurs des attributs data-category-id correspondant aux boutons "Objets", "Appartements" et "Hotels & Restaurants"
-
-    categoryButtons.forEach((button, index) => {
-      button.dataset.categoryId = categoryIds[index];
-    });
-
-    // Ajouter un écouteur d'événement à chaque bouton de catégorie
-    categoryButtons.forEach(button => {
-      button.addEventListener("click", function () {
-        const categoryId = parseInt(button.dataset.categoryId); // Récupérer la categoryId du bouton cliqué
-        const filteredWorks = works.filter(function (work) {
-          return work.categoryId === categoryId;
-        });
+    if (allButton) {
+      allButton.addEventListener("click", function () {
         document.querySelector(".gallery").innerHTML = "";
-        for (let work of filteredWorks) {
+        for (let work of works) {
           document.querySelector(".gallery").innerHTML += createFigure(work.imageUrl, work.title);
         }
       });
-    });
+    }
+    else {
+      console.error("L'élément 'allButton' n'a pas été trouvé.");
+    }
+    
+    // Vérifier si l'élément avec la classe "categories" existe
+    const categoriesElement = document.querySelector(".categories");
+    if (categoriesElement) {
+      // Sélectionner les boutons de catégorie
+      const categoryButtons = categoriesElement.querySelectorAll("input[type='button']:not([value='Tous'])");
+
+      // Ajouter les valeurs des attributs data-category-id aux boutons
+      const categoryIds = [1, 2, 3]; // Les valeurs des attributs data-category-id correspondant aux boutons "Objets", "Appartements" et "Hotels & Restaurants"
+
+      categoryButtons.forEach((button, index) => {
+        button.dataset.categoryId = categoryIds[index];
+      });
+
+      // Ajouter un écouteur d'événement à chaque bouton de catégorie
+      categoryButtons.forEach(button => {
+        button.addEventListener("click", function () {
+          const categoryId = parseInt(button.dataset.categoryId); // Récupérer la categoryId du bouton cliqué
+          const filteredWorks = works.filter(function (work) {
+            return work.categoryId === categoryId;
+          });
+          document.querySelector(".gallery").innerHTML = "";
+          for (let work of filteredWorks) {
+            document.querySelector(".gallery").innerHTML += createFigure(work.imageUrl, work.title);
+          }
+        });
+      });
+    }
   });
 
   // Récupérer le token depuis le localStorage :
@@ -86,20 +98,17 @@ if (token !== null) {
   <div class="edit-logo"><i class="fa-regular fa-pen-to-square"></i>Mode édition</div>
   <div class="edit-btn"><p></p>publier les changements</div>
   </div>`);
-  let navLinks = document.querySelector(".header-links").innerHTML = "";
-  document.querySelector(".header-links").innerHTML += (`<li>projets</li>
-  <li>contact</li><a id="logout-link" class="nav__link" href="index.html"><li>logout</li></a><li><img src="./assets/icons/instagram.png" alt="Instagram"></li>`);
-  let introLogo = document.getElementById("image-and-logo").innerHTML = "";
-  document.getElementById("image-and-logo").innerHTML += (`
-  <img src="./assets/images/sophie-bluel.png" alt="">
-  <div class="intro-logo"><i class="fa-regular fa-pen-to-square"></i>modifier</div>`);
-  let createLogo = document.querySelector(".portfolio-title-and-logo").innerHTML = "";
-  document.querySelector(".portfolio-title-and-logo").innerHTML += (`<div class="portfolio-title"><h2>Mes Projets</h2></div>
-  <div class="portfolio-logo"><i class="fa-regular fa-pen-to-square"></i>modifier</div>`);
-  let hideCategories = document.getElementById("portfolio").innerHTML = "";
-  document.getElementById("portfolio").innerHTML += (`<div class="portfolio-title-and-logo"><div class="portfolio-title"><h2>Mes Projets</h2></div>
-  <div class="portfolio-logo"><i class="fa-regular fa-pen-to-square"></i>modifier</div></div><div class="gallery">
-  </div>`);
+  let logoutLink = document.getElementById("logout-link");
+    logoutLink.style.display = "block";
+  let loginLink = document.getElementById("login-link");
+    loginLink.style.display = "none";
+  let introLogo = document.querySelector(".intro-logo");
+    introLogo.style.display = "block";
+  let portfolioLogo = document.querySelector(".portfolio-logo");
+    portfolioLogo.style.display = "block";
+    portfolioLogo.style.marginBottom = "90px";
+  let hideCategories = document.querySelector(".categories");
+    hideCategories.style.display = "none";
 }
 
 

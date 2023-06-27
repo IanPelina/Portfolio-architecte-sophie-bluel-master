@@ -30,6 +30,8 @@ footer, header, hgroup, menu, nav, section {
 }
 body {
 	line-height: 1;
+	background-color: #FFFEF8;
+	font-family: 'Work Sans' ;
 }
 ol, ul {
 	list-style: none;
@@ -47,16 +49,13 @@ table {
 	border-spacing: 0;
 }
 /** end reset css**/
-.background {
-	background-color: #FFFEF8;
-}
 
-.main-container { /*changer en main-container pour avoir la barre et le footer qui plus large que le reste */
+.main-container {
 	max-width: 1140px;
 	margin:auto;
-	font-family: 'Work Sans' ;
 	font-size: 14px;
 }
+
 header {
 	display: flex;
 	justify-content: space-between;
@@ -137,7 +136,8 @@ li:hover {
 	margin-bottom: 1em;
 }
 .gallery {
-	width: 100%;
+	margin: 0 auto;
+	width: 84.4%;
 	display: grid;
 	grid-template-columns: 1fr 1fr 1fr;
 	grid-column-gap: 20px;
@@ -146,9 +146,8 @@ li:hover {
 
 .gallery img {
 	width: 100%;
-
 }
-/************************************************************Css Categories (test)***********************************************************/
+/*Css Categories*/
 .categories {
 	text-align: center;
 }
@@ -172,10 +171,10 @@ li:hover {
 		cursor: pointer;
 	}
 }
-/*************************************************Fin du Css categories(test)*********************************************************************/
+/*Fin du Css categories*/
 #contact {
-	width: 50%;
-	margin: 0 auto 355px; /*ajout de 0 et 355px pour respecter la maquette*/
+	width: 33.3%;
+	margin: auto;
 }
 #contact > * {
 	text-align: center;
@@ -214,42 +213,63 @@ input[type="submit"]{
 	width: 180px;
 	text-align: center;
 	border-radius: 60px ;
+	cursor: pointer;
 }
 
-#footer-nav {
+footer {
+	height: 60px;
+	background-color: white;
 	display: flex;
 	justify-content: flex-end;
-	margin: 2em;
-	font-family: 'Work Sans';
-	position: relative;
-	background-color: white;
+	align-items: center;
 }
 
-#footer-nav li {
-	position: absolute;
-	right: 107px;
+footer nav ul li {
+	padding: 0 107px 0 0;
 }
 
 /***************************************************Css Login*************************************************************************/
-.login {
-	max-width: 1140px;
-	margin:auto;
-	font-family: 'Work Sans' ;
-	font-size: 14px;
-}	
+
+.login-header {
+	margin: 50px 150px;
+}
 
 .login-header b {
 	font-weight: bold;
 }
 
-#error-message { 
+#login-contact {
+	width: 26.8%;
+	margin: 0 auto 355px;
+}
+#login-contact > * {
+	text-align: center;
+
+}
+#login-contact h2{
+	margin-bottom: 20px;
+}
+#login-contact form {
+	text-align: left;
+	margin-top:30px;
+	display: flex;
+	flex-direction: column;
+}
+
+#login-contact input {
+	height: 50px;
+	font-size: 1.2em;
+	border: none;
+	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+}
+#login-contact label {
+	margin: 2em 0 1em 0;
+}
+
+#login-error-message { 
 	margin-top: 20px;
 	text-align: center;
 	color: red;
-}
-
-.login-form-submit {
-	cursor: pointer;
 }
 
 form + p {
@@ -291,8 +311,13 @@ form + p:hover {
 	padding: 11px 23px;
 }
  
+#logout-link {
+	display: none;
+}
+
 .intro-logo {
 	margin: 13px 0 0 57px;
+	display: none;
 }
  
 .portfolio-title-and-logo {
@@ -301,4 +326,8 @@ form + p:hover {
 	justify-content: center;
 	align-items: baseline;
 	gap: 30px;
+}
+
+.portfolio-logo {
+	display: none;
 }
