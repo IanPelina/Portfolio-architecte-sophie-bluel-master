@@ -47,7 +47,7 @@ table {
 	border-spacing: 0;
 }
 /** end reset css**/
-body {
+.background {
 	background-color: #FFFEF8;
 }
 
@@ -159,12 +159,13 @@ li:hover {
 	background-color: white;
 	font-family: 'Syne';
 	font-weight: 700;
-	margin : 2em auto ;
+	margin : 2em 5px;
 	text-align: center;
 	box-sizing: border-box;
 	height: 50px;
 	font-size: 1.2em;
 	min-width: 100px;
+	padding: 10px;
 	&:hover {
 		color: white;
 		background-color: #1D6154;
@@ -230,6 +231,16 @@ input[type="submit"]{
 }
 
 /***************************************************Css Login*************************************************************************/
+.login {
+	max-width: 1140px;
+	margin:auto;
+	font-family: 'Work Sans' ;
+	font-size: 14px;
+}	
+
+.login-header b {
+	font-weight: bold;
+}
 
 #error-message { 
 	margin-top: 20px;

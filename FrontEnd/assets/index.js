@@ -75,3 +75,51 @@ fetch("http://localhost:5678/api/categories")
       });
     });
   });
+
+  // Récupérer le token depuis le localStorage :
+const token = localStorage.getItem("token");
+console.log(token);
+
+if (token !== null) {
+  // Appliquer les styles si l'utilisateur est connecté.
+  let editBarr = document.querySelector(".edit-mode").innerHTML += (`<div class="editbarr">
+  <div class="edit-logo"><i class="fa-regular fa-pen-to-square"></i>Mode édition</div>
+  <div class="edit-btn"><p></p>publier les changements</div>
+  </div>`);
+  let navLinks = document.querySelector(".header-links").innerHTML = "";
+  document.querySelector(".header-links").innerHTML += (`<li>projets</li>
+  <li>contact</li><a id="logout-link" class="nav__link" href="index.html"><li>logout</li></a><li><img src="./assets/icons/instagram.png" alt="Instagram"></li>`);
+  let introLogo = document.getElementById("image-and-logo").innerHTML = "";
+  document.getElementById("image-and-logo").innerHTML += (`
+  <img src="./assets/images/sophie-bluel.png" alt="">
+  <div class="intro-logo"><i class="fa-regular fa-pen-to-square"></i>modifier</div>`);
+  let createLogo = document.querySelector(".portfolio-title-and-logo").innerHTML = "";
+  document.querySelector(".portfolio-title-and-logo").innerHTML += (`<div class="portfolio-title"><h2>Mes Projets</h2></div>
+  <div class="portfolio-logo"><i class="fa-regular fa-pen-to-square"></i>modifier</div>`);
+  let hideCategories = document.getElementById("portfolio").innerHTML = "";
+  document.getElementById("portfolio").innerHTML += (`<div class="portfolio-title-and-logo"><div class="portfolio-title"><h2>Mes Projets</h2></div>
+  <div class="portfolio-logo"><i class="fa-regular fa-pen-to-square"></i>modifier</div></div><div class="gallery">
+  </div>`);
+}
+
+
+//Ajout de l'event listenner sur le lien logout 
+const logoutLink = document.getElementById("logout-link");
+logoutLink.addEventListener("click", logout);
+
+//Suppresion du token et redirection vers la page d'accueil classique 
+function logout() {
+  localStorage.removeItem("token");
+  window.location.href = "index.html";
+}
+
+// Comment faire des requêtes en utilisant le token ?
+
+async function deleteWork(id) {
+  await fetch(`http://localhost:5678/api/works/${id}`, {
+    method: "DELETE",
+    headers: {
+      "Authorization": `Bearer ${token}`,
+    }
+  })
+}
