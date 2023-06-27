@@ -1,0 +1,42 @@
+.edit-mode {
+    display: none;
+    .editbarr {
+        height: 59px;
+        background-color: black;
+        display: flex;
+        gap: 25px;
+        justify-content: center;
+        align-items: center;
+        color: white;
+        font-family: 'Work Sans' ;
+        .edit-logo i {
+            margin-right: 10px;
+        }
+        .edit-btn {
+            border-radius: 60px;
+            background-color: #FFFFFF;
+            color: black;
+            padding: 11px 23px;
+        }
+    }
+}
+
+#logout-link {
+	display: none;
+}
+
+.intro-logo {
+	margin: 13px 0 0 57px;
+	display: none;
+}
+ 
+.portfolio-title-and-logo {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: baseline;
+	gap: 30px;
+    .portfolio-logo {
+        display: none;
+    }
+}

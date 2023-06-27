@@ -94,10 +94,8 @@ console.log(token);
 
 if (token !== null) {
   // Appliquer les styles si l'utilisateur est connecté.
-  let editBarr = document.querySelector(".edit-mode").innerHTML += (`<div class="editbarr">
-  <div class="edit-logo"><i class="fa-regular fa-pen-to-square"></i>Mode édition</div>
-  <div class="edit-btn"><p></p>publier les changements</div>
-  </div>`);
+  let editMode = document.querySelector(".edit-mode");
+  editMode.style.display = "block";
   let logoutLink = document.getElementById("logout-link");
     logoutLink.style.display = "block";
   let loginLink = document.getElementById("login-link");
