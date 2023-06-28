@@ -18,6 +18,22 @@ function createInput(name, categoryId) {
   `;
 }
 
+//Fonction pour créer la gallerie Modale
+function createModalFigure(imageUrl, title) {
+  const editTitle = "éditer";
+  const deleteIcon = '<i id="trash" class="fa-solid fa-trash-can"></i>';
+  const moveIcon = '<i  id="move" class="fa-solid fa-arrows-up-down-left-right"></i>';
+
+  return `
+    <figure>
+      ${moveIcon}
+      ${deleteIcon}
+      <img id="modal-image" src="${imageUrl}" alt="${title}">
+      <figcaption id="modal-image-title">${editTitle}</figcaption>
+    </figure>
+  `;
+}
+
 // Récupérer les données des works depuis l'API
 fetch("http://localhost:5678/api/works")
   .then(response => response.json())
@@ -28,6 +44,7 @@ fetch("http://localhost:5678/api/works")
     for (let work of works) {
       // Ajouter la figure à la galerie
       document.querySelector(".gallery").innerHTML += createFigure(work.imageUrl, work.title);
+      document.querySelector(".modal-gallery").innerHTML += createModalFigure(work.imageUrl, work.title); //ajout de cette ligne pour la modale
     }
   });
 
@@ -88,27 +105,74 @@ fetch("http://localhost:5678/api/categories")
     }
   });
 
-  // Récupérer le token depuis le localStorage :
+// Récupérer le token depuis le localStorage :
 const token = localStorage.getItem("token");
 console.log(token);
 
+
+// Appliquer les styles si l'utilisateur est connecté.
 if (token !== null) {
-  // Appliquer les styles si l'utilisateur est connecté.
-  let editMode = document.querySelector(".edit-mode");
+  let editMode = document.querySelector(".edit-mode"); // faire apparaitre la barre du haut
   editMode.style.display = "block";
-  let logoutLink = document.getElementById("logout-link");
+  let logoutLink = document.getElementById("logout-link");//faire apparaitre le bouton logout
     logoutLink.style.display = "block";
-  let loginLink = document.getElementById("login-link");
+  let loginLink = document.getElementById("login-link");//faire disparaitre le bouton login
     loginLink.style.display = "none";
-  let introLogo = document.querySelector(".intro-logo");
+  let introLogo = document.querySelector(".intro-logo");//faire apparaitre le logo section intro
     introLogo.style.display = "block";
-  let portfolioLogo = document.querySelector(".portfolio-logo");
+  let portfolioLogo = document.querySelector(".portfolio-logo");//faire apparaitre le lofo section portfolio
     portfolioLogo.style.display = "block";
     portfolioLogo.style.marginBottom = "90px";
-  let hideCategories = document.querySelector(".categories");
+  let hideCategories = document.querySelector(".categories");//faire disparaitre les catégrories 
     hideCategories.style.display = "none";
 }
 
+//Faire apparaitre la modale
+let modal = null
+
+const displayModal = function (e) {
+  e.preventDefault();
+  const targetId = "#" + e.target.getAttribute("href");
+
+  if (targetId) {
+    const target = document.querySelector(targetId);
+
+    if (target) {
+      target.style.display = null;
+      target.removeAttribute("aria-hidden");
+      target.setAttribute("aria-modal", "true");
+      modal = target
+      modal.addEventListener("click", closeModal)
+      modal.querySelector(".closer").addEventListener("click", closeModal)
+      modal.querySelector(".modal-stop").addEventListener("click", stopPropagation)
+    }
+  }
+};
+
+//Faire disparaitre la modale
+const closeModal = function (e) {
+  if (modal === null) return
+  e.preventDefault()
+      modal.style.display = "none";
+      modal.setAttribute("aria-hidden", "true");
+      modal.removeAttribute("aria-modal");
+      modal.removeEventListener("click", closeModal)
+      modal.querySelector(".closer").removeEventListener("click", closeModal)
+      modal.querySelector(".modal-stop").removeEventListener("click", stopPropagation)
+      modal = null
+}
+
+//Empêcher la fermeture au clique dans la modale
+const stopPropagation = function (e) {
+  e.stopPropagation()
+}
+
+//Ajout de l'eventListenner sur le logo (modifier le nom ou All du queryselctor)
+document.querySelectorAll(".portfolio-logo").forEach(a => {
+  a.addEventListener("click", displayModal);
+});
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 //Ajout de l'event listenner sur le lien logout 
 const logoutLink = document.getElementById("logout-link");
@@ -121,7 +185,6 @@ function logout() {
 }
 
 // Comment faire des requêtes en utilisant le token ?
-
 async function deleteWork(id) {
   await fetch(`http://localhost:5678/api/works/${id}`, {
     method: "DELETE",
