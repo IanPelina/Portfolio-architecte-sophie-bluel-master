@@ -372,6 +372,9 @@ form + p:hover {
   width: 77px;
   position: relative;
 }
+.modal .modal-wrapper .modal-gallery figure:hover #move {
+  display: block;
+}
 .modal .modal-wrapper .modal-gallery figure img {
   width: 100%;
 }
@@ -384,6 +387,7 @@ form + p:hover {
   background-color: black;
   border-radius: 2px;
   font-size: 0.6rem;
+  cursor: pointer;
 }
 .modal .modal-wrapper .modal-gallery figure #move {
   position: absolute;
@@ -394,6 +398,7 @@ form + p:hover {
   background-color: black;
   border-radius: 2px;
   font-size: 0.6rem;
+  display: none;
 }
 .modal .modal-wrapper input {
   height: 50px;

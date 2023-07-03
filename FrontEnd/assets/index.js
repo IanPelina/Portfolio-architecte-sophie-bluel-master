@@ -21,13 +21,11 @@ function createInput(name, categoryId) {
 //Fonction pour créer la gallerie Modale
 function createModalFigure(imageUrl, title) {
   const editTitle = "éditer";
-  const deleteIcon = '<i id="trash" class="fa-solid fa-trash-can"></i>';
-  const moveIcon = '<i  id="move" class="fa-solid fa-arrows-up-down-left-right"></i>';
 
   return `
     <figure>
-      ${moveIcon}
-      ${deleteIcon}
+      <i id="trash" class="fa-solid fa-trash-can"></i>
+      <i  id="move" class="fa-solid fa-arrows-up-down-left-right"></i>      
       <img id="modal-image" src="${imageUrl}" alt="${title}">
       <figcaption id="modal-image-title">${editTitle}</figcaption>
     </figure>
@@ -44,7 +42,8 @@ fetch("http://localhost:5678/api/works")
     for (let work of works) {
       // Ajouter la figure à la galerie
       document.querySelector(".gallery").innerHTML += createFigure(work.imageUrl, work.title);
-      document.querySelector(".modal-gallery").innerHTML += createModalFigure(work.imageUrl, work.title); //ajout de cette ligne pour la modale
+      //ajout de cette ligne pour la modale
+      document.querySelector(".modal-gallery").innerHTML += createModalFigure(work.imageUrl, work.title); 
     }
   });
 
@@ -109,7 +108,6 @@ fetch("http://localhost:5678/api/categories")
 const token = localStorage.getItem("token");
 console.log(token);
 
-
 // Appliquer les styles si l'utilisateur est connecté.
 if (token !== null) {
   let editMode = document.querySelector(".edit-mode"); // faire apparaitre la barre du haut
@@ -125,6 +123,15 @@ if (token !== null) {
     portfolioLogo.style.marginBottom = "90px";
   let hideCategories = document.querySelector(".categories");//faire disparaitre les catégrories 
     hideCategories.style.display = "none";
+}
+
+//Ajout de l'event listenner sur le lien logout 
+const logoutLink = document.getElementById("logout-link");
+logoutLink.addEventListener("click", logout);
+//Suppresion du token et redirection vers la page d'accueil classique 
+function logout() {
+  localStorage.removeItem("token");
+  window.location.href = "index.html";
 }
 
 //Faire apparaitre la modale
@@ -167,22 +174,13 @@ const stopPropagation = function (e) {
   e.stopPropagation()
 }
 
-//Ajout de l'eventListenner sur le logo (modifier le nom ou All du queryselctor)
-document.querySelectorAll(".portfolio-logo").forEach(a => {
+//Ajout de l'eventListenner sur le logo
+document.querySelector(".portfolio-logo").addEventListener("click", displayModal);
+/*
+si on veut rendre focntionnels tous les liens 
+document.querySelectorAll("attrribuer un nom pour tous les liens").forEach(a => {
   a.addEventListener("click", displayModal);
-});
-
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-//Ajout de l'event listenner sur le lien logout 
-const logoutLink = document.getElementById("logout-link");
-logoutLink.addEventListener("click", logout);
-
-//Suppresion du token et redirection vers la page d'accueil classique 
-function logout() {
-  localStorage.removeItem("token");
-  window.location.href = "index.html";
-}
+});*/
 
 // Comment faire des requêtes en utilisant le token ?
 async function deleteWork(id) {
@@ -190,6 +188,13 @@ async function deleteWork(id) {
     method: "DELETE",
     headers: {
       "Authorization": `Bearer ${token}`,
-    }
+    },
   })
 }
+
+//A faire 
+//Ajouter un event listenner sur le bouton "ajouter une photo" pour faire apparaitre la seconde modale
+//Creer la seconde modale 
+//Compléter deleteWork pour la suppression des travaux
+//Rendre possible l'ajout de travaux
+//Rendre l'ajout et la suppresion de travaux sans recharger la page  

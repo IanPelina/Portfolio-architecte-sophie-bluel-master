@@ -42,6 +42,9 @@
             figure {
                 width: 77px;
                 position: relative;
+                &:hover #move{
+                    display: block;
+                }
                 img {
                     width: 100%;
                 }
@@ -54,6 +57,7 @@
                     background-color: black;
                     border-radius: 2px;
                     font-size: 0.6rem;
+                    cursor: pointer;
                 }
                 #move {
                     position: absolute;
@@ -64,6 +68,7 @@
                     background-color: black;
                     border-radius: 2px;
                     font-size: 0.6rem;
+                    display: none;
                 }
             }
             
