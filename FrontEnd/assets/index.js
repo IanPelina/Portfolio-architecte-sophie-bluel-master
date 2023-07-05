@@ -2,9 +2,9 @@
 let works = [];
 
 // Fonction pour créer un élément figure
-function createFigure(imageURL, title) {
+function createFigure(imageURL, title, id) {
   return `
-    <figure>
+    <figure data-id="${id}">
       <img src="${imageURL}" alt="${title}">
       <figcaption>${title}</figcaption>
     </figure>
@@ -16,16 +16,16 @@ function createInput(name, categoryId) {
   return `
     <input type="button" value="${name}" data-category-id="${categoryId}">
   `;
-}
+} 
 
 //Fonction pour créer la gallerie Modale
-function createModalFigure(imageUrl, title) {
+function createModalFigure(imageUrl, title, id) {
   const editTitle = "éditer";
 
   return `
-    <figure>
-      <i id="trash" class="fa-solid fa-trash-can"></i>
-      <i  id="move" class="fa-solid fa-arrows-up-down-left-right"></i>      
+    <figure data-id="${id}">
+      <i class="trash fa-solid fa-trash-can"></i>
+      <i class="move fa-solid fa-arrows-up-down-left-right"></i>      
       <img id="modal-image" src="${imageUrl}" alt="${title}">
       <figcaption id="modal-image-title">${editTitle}</figcaption>
     </figure>
@@ -41,9 +41,20 @@ fetch("http://localhost:5678/api/works")
     // Parcourir les works et créer une figure pour chaque work
     for (let work of works) {
       // Ajouter la figure à la galerie
-      document.querySelector(".gallery").innerHTML += createFigure(work.imageUrl, work.title);
+      document.querySelector(".gallery").innerHTML += createFigure(work.imageUrl, work.title, work.id);
       //ajout de cette ligne pour la modale
-      document.querySelector(".modal-gallery").innerHTML += createModalFigure(work.imageUrl, work.title); 
+      document.querySelector(".modal-gallery").innerHTML += createModalFigure(work.imageUrl, work.title, work.id); 
+    }
+    // Ajouter les écouteurs d'événements aux icônes "trash"
+    const trashes = document.querySelectorAll(".trash");
+      for (let trash of trashes) {
+      trash.addEventListener("click", function (event) {
+        const id = event.target.parentElement.dataset.id;
+        deleteWork(id).then(() => {
+          document.querySelector(`.modal-gallery figure[data-id="${id}"]`).remove();
+          document.querySelector(`.gallery figure[data-id="${id}"]`).remove();
+        })
+      });
     }
   });
 
@@ -67,7 +78,7 @@ fetch("http://localhost:5678/api/categories")
       allButton.addEventListener("click", function () {
         document.querySelector(".gallery").innerHTML = "";
         for (let work of works) {
-          document.querySelector(".gallery").innerHTML += createFigure(work.imageUrl, work.title);
+          document.querySelector(".gallery").innerHTML += createFigure(work.imageUrl, work.title, work.id);
         }
       });
     }
@@ -97,7 +108,7 @@ fetch("http://localhost:5678/api/categories")
           });
           document.querySelector(".gallery").innerHTML = "";
           for (let work of filteredWorks) {
-            document.querySelector(".gallery").innerHTML += createFigure(work.imageUrl, work.title);
+            document.querySelector(".gallery").innerHTML += createFigure(work.imageUrl, work.title, work.id);
           }
         });
       });
@@ -192,9 +203,86 @@ async function deleteWork(id) {
   })
 }
 
+
 //A faire 
-//Ajouter un event listenner sur le bouton "ajouter une photo" pour faire apparaitre la seconde modale
-//Creer la seconde modale 
-//Compléter deleteWork pour la suppression des travaux
-//Rendre possible l'ajout de travaux
-//Rendre l'ajout et la suppresion de travaux sans recharger la page  
+//Ajouter un event listenner sur le bouton "ajouter une photo" pour faire apparaitre la seconde modale --OK--//
+//Creer la seconde modale --OK--//
+//Compléter deleteWork pour la suppression des travaux --OK--//
+//Fermer modal2 --OK--//
+//Rendre possible l'ajout/suppresion de travaux sans recharger la page  --OK Suppression 1/2--
+//Rendre possible l'ajout de travaux 
+//Rendre fonctionnel 'supprimer la galerie' (for of i--?)
+
+//Détails 
+//Background fleche , couleur , (inserer dynamiquement? , voir commentaires,)
+//Apparence modal1 
+//Trouver meilleure image pour modal2?
+
+//test3
+//Faire apparaitre la deuxieme modale
+let addPhotoLink = document.getElementById('add-photo-link')
+let secondModal = document.getElementById('modal2')
+let firstModal = document.getElementById('modal1')
+
+addPhotoLink.addEventListener('click', function(event) {
+  
+  event.preventDefault()
+
+  secondModal.style.display = null 
+
+  firstModal.style.display = 'none'
+});
+
+
+//Retour à la première modale
+let returnLink = document.querySelector(".return")
+
+returnLink.addEventListener("click", function (event) {
+
+  event.preventDefault()
+
+  secondModal.style.display = "none"
+
+  firstModal.style.display = null
+
+});
+
+//Fermeture des 2 modales
+let closeLink = document.querySelector("#modal2 .closer")
+
+closeLink.addEventListener("click", function (e) {
+
+  e.preventDefault()
+  
+  secondModal.style.display = "none"
+
+  firstModal.style.display = "none"
+
+});
+
+//Fermer la deuxieme modale au clique en dehors de la modale 
+window.onclick = function(event) {
+  if (event.target == secondModal) {
+    secondModal.style.display = "none";
+  }
+}
+
+//Ajouter des works 
+let form = document.querySelector(".modal-2-form")
+ form.addEventListener("submit", async function (e) {
+  e.preventDefault();
+  const formData = new FormData(form);
+  const work = await createWork(formData);
+  // @TODO: Ajouter le travail dans la liste des travaux.
+});
+
+async function createWork(formData) {
+  const response = await fetch(`http://localhost:5678/api/works`, {
+    method: "POST",
+    headers: {
+      "Authorization": `Bearer ${token}`
+    },
+    body: formData,
+  })
+  return await response.json();
+}

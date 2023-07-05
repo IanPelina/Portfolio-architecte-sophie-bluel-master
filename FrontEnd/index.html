@@ -58,20 +58,41 @@
 								<h3 id="title-modal">Galerie Photo</h3>
 								<div class="modal-gallery">
 								</div>
-								<a href="modal2" id="add-photo-link"><input class="modal-input" type="submit" value="Ajouter une photo"></a>								
+								<a id="add-photo-link" href="modal2"><input class="modal-input" type="submit" value="Ajouter une photo"></a>								
 								<p>Supprimer la galerie</p>
 							</div>
 						</aside>
-						<aside id="modal2" class="modal" aria-hidden="true" role="dialog" aria-labelledby="title-modal" style="display: none;"> <!--verifier si ok-->
-							<div class="modal-wrapper modal-stop">
-								<div class="modal-return">
-									<i class="fa-solid fa-arrow-left"></i>
+						<aside id="modal2" class="modal" aria-hidden="true" role="dialog" aria-labelledby="title-modal-2" style="display: none;"> <!--verifier si ok-->
+							<div class="modal-wrapper modal2-stop">
+								<div class="return-and-closer">
+									<div class="modal-return">
+										<i class="fa-solid fa-arrow-left return"></i>
+									</div>
+									<div class="modal-closer">
+										<i class="fa-solid fa-xmark closer"></i>
+									</div>
 								</div>
-								<div class="modal-closer">
-									<i class="fa-solid fa-xmark closer"></i>
-								</div>
-								<h3 id="title-modal">Ajout Photo</h3>
-								<input class="modal-input" type="submit" value="Valider">					
+								<h3 id="title-modal-2">Ajout Photo</h3>
+								<form class="modal-2-form" action="#" method="post">
+									<div class="ajout-photo">
+										<i class="fa-regular fa-image"></i>	
+										<label class="input-file" for="file">+ Ajouter photo</label>
+										<input type="file" id="file">
+										<p class="ajout-photo-text">jpg, png : 4mo max</p>
+									</div>
+									<div class="modal-2-inputs">
+										<label for="title">Titre</label>
+										<input type="text" name="title" id="title" autocomplete="on">
+										<label class="input-categorie" for="categorie">Catégorie</label>
+										<select name="categorie" id="categorie">
+											<option value=""></option>
+											<option value="objets">Objets</option>
+											<option value="appartements">Appartements</option>
+											<option value="hotels&restaurants">Hôtels & Restaurants</option>
+										</select>
+									</div>
+									<input class="modal-submit" type="submit" value="Valider" >		
+								</form>			
 							</div>
 						</aside>
 					<div class="categories">
@@ -85,9 +106,9 @@
 					<p>Vous avez un projet ? Discutons-en !</p>
 					<form action="#" method="post">
 						<label for="name">Nom</label>
-						<input type="text" name="name" id="name" autocomplete="name">
+						<input type="text" name="name" id="name" autocomplete="on">
 						<label for="email">Email</label>
-						<input type="email" name="email" id="email" autocomplete="email">
+						<input type="email" name="email" id="email" autocomplete="on">
 						<label for="message">Message</label>
 						<textarea name="message" id="message" cols="30" rows="10"></textarea>
 						<input type="submit" value="Envoyer">

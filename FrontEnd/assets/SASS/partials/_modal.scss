@@ -22,8 +22,7 @@
             i {
                 cursor: pointer;
                 font-size: 1.6rem;
-                margin-top: 35px;
-                margin-right: 35px;
+                margin: 35px 35px 0 0;
             }
         }
         #title-modal {
@@ -42,13 +41,13 @@
             figure {
                 width: 77px;
                 position: relative;
-                &:hover #move{
+                &:hover .move{
                     display: block;
                 }
                 img {
                     width: 100%;
                 }
-                #trash {
+                .trash {
                     position: absolute;
                     top: 10px;
                     right: 5px;
@@ -59,7 +58,7 @@
                     font-size: 0.6rem;
                     cursor: pointer;
                 }
-                #move {
+                .move {
                     position: absolute;
                     top: 10px;
                     right: 25px;
@@ -87,7 +86,101 @@
     }
 }
 
+#modal2 {
+    .modal-wrapper {
+        max-height: 670px;
+        .return-and-closer {
+            display: flex;
+            justify-content: space-between;
+            .modal-return {
+                i {
+                    cursor: pointer;
+                    font-size: 1.5rem;
+                    margin: 35px 0 0 35px;
+                }
+            }
+        }
+        #title-modal-2 {
+            font-size: 1.7rem;
+        }
+        .modal-2-form {
+            width: 420px;
+            margin: 36px auto 32px;
+            .ajout-photo {
+                width: 100%;
+                height: 169px;
+                background-color: #E8F1F6;
+                border-radius: 3px;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                i {
+                    font-size: 3.4rem;
+                    height: 46px;
+                    color: #B9C5CC;
+                    margin: 28px 0 19px;
+                }
+                .input-file {
+                    background-color: #CBD6DC;
+                    color: #306685;
+                    border-radius: 50px;
+                    padding: 10px 33px;
+                    width: 173px;
+                    height: 36px;
+                    border: none;
+                    margin-bottom: 7px;
+                    cursor: pointer;
+                }
+                #file {
+                    display: none;
+                }
 
+                .ajout-photo-text{
+                   color: #444444;
+                   padding: 0;
+                   margin-bottom: 19px;
+                }
+            }
+            .modal-2-inputs {
+                display: flex;
+                flex-direction: column;
+                padding: 30px 0 47px;
+                border-bottom: solid 1px #B3B3B3;
+                label {
+                    text-align: initial;
+                    margin-bottom: 10px;
+                }
+                input {
+                    width: 100%;
+                }
+                .input-categorie {
+                    margin-top: 20px;
+                }
+                #categorie {
+                    width: 424px;
+                    height: 52px;
+                    font-size: 1.2em;
+                    border: none;
+                    box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+                    -webkit-appearance: none;
+                    -moz-appearance: none;
+                    appearance: none;
+                    background: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRuJeEpIJXCso4miG5k7xuvGE-2RcfXriKHfw&usqp=CAU');
+                    background-repeat: no-repeat;
+                    background-size: 20px;
+                    background-position: right 15px top 24px;
+                    padding: 15px;
+                }
+            }
+        }
+        .modal-submit {
+            background-color: #A7A7A7;
+            color: white;
+            height: 36px;
+        }
+    }
+}
 
 
 
