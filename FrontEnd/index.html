@@ -73,18 +73,18 @@
 									</div>
 								</div>
 								<h3 id="title-modal-2">Ajout Photo</h3>
-								<form class="modal-2-form" action="#" method="post">
+								<form class="modal-2-form" method="post">
 									<div class="ajout-photo">
 										<i class="fa-regular fa-image"></i>	
 										<label class="input-file" for="file">+ Ajouter photo</label>
-										<input type="file" id="file">
+										<input type="file" id="file" name="image">
 										<p class="ajout-photo-text">jpg, png : 4mo max</p>
 									</div>
 									<div class="modal-2-inputs">
 										<label for="title">Titre</label>
 										<input type="text" name="title" id="title" autocomplete="on">
 										<label class="input-categorie" for="categorie">Catégorie</label>
-										<select name="categorie" id="categorie">
+										<select name="category" id="categorie">
 											<option value=""></option>
 											<option value="objets">Objets</option>
 											<option value="appartements">Appartements</option>
@@ -97,7 +97,7 @@
 						</aside>
 					<div class="categories">
 						<input type="button" value="Tous"> 
-					</div>
+					</div>	
 						<div class="gallery">
 					</div>
 				</section>

@@ -1,24 +1,24 @@
 // Submission du formulaire :
 document.getElementById("login-form").addEventListener("submit", async function (event) {
-    event.preventDefault(); // Empêcher le formulaire de se soumettre.
+    event.preventDefault() // Empêcher le formulaire de se soumettre.
 
     // Récupérer les valeurs du formulaire :
-    let email = document.getElementById("email").value.trim();
-    let password = document.getElementById("password").value.trim();
+    const email = document.getElementById("email").value.trim()
+    const password = document.getElementById("password").value.trim()
 
     // Vérifier que les champs ne sont pas vides :
     if (email && password) {
         // Envoyer les données à l'API :
         try {
-            await login(email, password);
+            await login(email, password)
         // Capturer l'erreur :
         } catch (error) {
-            console.error(error.message);
-            document.getElementById("error-message").textContent = error.message;
+            console.error(error.message)
+            document.getElementById("error-message").textContent = error.message
         }
 
     }
-});
+})
 
 async function login(email, password) {
     // Créer les options de la requête :
@@ -33,21 +33,21 @@ async function login(email, password) {
             email: email,
             password: password
         })
-    };
+    }
 
     // Envoyer la requête :
-    const response = await fetch("http://localhost:5678/api/users/login", options);
+    const response = await fetch("http://localhost:5678/api/users/login", options)
     // Vérifier la réponse :
     if (response.ok) {
         // Extraire les données de la réponse :
-        const data = await response.json();
+        const data = await response.json()
         // Stocker le token dans le localStorage :
-        localStorage.setItem("token", data.token);
+        localStorage.setItem("token", data.token)
         // Rediriger l'utilisateur vers la page d'accueil :
-        window.location.href = "index.html";
+        window.location.href = "index.html"
     } else {
         // Lancer une nouvelle erreur :
-        throw new Error("Erreur dans l’identifiant ou le mot de passe.");
+        throw new Error("Erreur dans l’identifiant ou le mot de passe.")
     }
 
 }
