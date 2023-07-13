@@ -12,7 +12,7 @@
         background-color: #FFFFFF;
         width: 43.8%;
         max-width: 630px;
-        max-height: 731px;//voir si mieux => max-height: calc(100vh - 30px); + overflow: auto;
+        max-height: 731px;
         border-radius: 10px;
         text-align: center;
         .modal-closer {
@@ -140,6 +140,15 @@
                    color: #444444;
                    padding: 0;
                    margin-bottom: 19px;
+                }
+                .uploaded-img {
+                    width: 129px;
+                    height: 169px;
+                    object-fit: cover;
+                }
+                .file-too-big {
+                    display: none;
+                    padding-bottom: 25px;
                 }
             }
             .modal-2-inputs {

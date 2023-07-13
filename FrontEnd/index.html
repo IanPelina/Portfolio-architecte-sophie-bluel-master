@@ -10,6 +10,7 @@
 	<meta name="description" content="">
 	<link rel="stylesheet" href="./assets/style.css">
 	<script src="https://kit.fontawesome.com/9e7531cdfa.js" crossorigin="anonymous"></script>
+	<script src="assets/api.js" defer></script>
 	<script src="assets/index.js" defer></script>
 </head>
 <body>
@@ -59,7 +60,7 @@
 								<div class="modal-gallery">
 								</div>
 								<a id="add-photo-link" href="modal2"><input class="modal-input" type="submit" value="Ajouter une photo"></a>								
-								<p>Supprimer la galerie</p>
+								<p class="delete-all">Supprimer la galerie</p>
 							</div>
 						</aside>
 						<aside id="modal2" class="modal" aria-hidden="true" role="dialog" aria-labelledby="title-modal-2" style="display: none;"> <!--verifier si ok-->
@@ -77,21 +78,19 @@
 									<div class="ajout-photo">
 										<i class="fa-regular fa-image"></i>	
 										<label class="input-file" for="file">+ Ajouter photo</label>
-										<input type="file" id="file" name="image">
+										<input type="file" id="file" name="image" accept=".jpg, .png" onchange="validateFileSize(event)" required>
 										<p class="ajout-photo-text">jpg, png : 4mo max</p>
+										<p class="file-too-big">La taille du fichier dépasse la limite de 4 Mo.</p>
 									</div>
 									<div class="modal-2-inputs">
 										<label for="title">Titre</label>
-										<input type="text" name="title" id="title" autocomplete="on">
+										<input type="text" name="title" id="title" autocomplete="on" required>
 										<label class="input-categorie" for="categorie">Catégorie</label>
-										<select name="category" id="categorie">
+										<select name="category" id="categorie" required>
 											<option value=""></option>
-											<option value="objets">Objets</option>
-											<option value="appartements">Appartements</option>
-											<option value="hotels&restaurants">Hôtels & Restaurants</option>
 										</select>
 									</div>
-									<input class="modal-submit" type="submit" value="Valider" >		
+									<input class="modal-submit" type="submit" value="Valider">		
 								</form>			
 							</div>
 						</aside>

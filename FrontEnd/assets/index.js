@@ -1,6 +1,20 @@
 // Variable globale pour stocker les works
 let works = []
 
+//Mettre createFigure et createModalFigure dans une fonction pour éviter les répetitions
+function createFigures() {
+  // Parcourir les works et créer une figure pour chaque work
+  for (let work of works) {
+    // Ajouter la figure à la galerie
+    addToGallery(work)   
+    //ajout de cette ligne pour la modale
+    addToModalGallery(work)  }
+}
+
+function addToGallery(work) {
+  document.querySelector(".gallery").innerHTML += createFigure(work.imageUrl, work.title, work.id)
+}
+
 // Fonction pour créer un élément figure
 function createFigure(imageURL, title, id) {
   return `
@@ -11,17 +25,13 @@ function createFigure(imageURL, title, id) {
   `
 }
 
-// Fonction pour créer un bouton de catégorie
-function createInput(name, categoryId) {
-  return `
-    <input type="button" value="${name}" data-category-id="${categoryId}">
-  `
-} 
+function addToModalGallery(work) {
+  document.querySelector(".modal-gallery").innerHTML += createModalFigure(work.imageUrl, work.title, work.id)
+}
 
 //Fonction pour créer la gallerie Modale
 function createModalFigure(imageUrl, title, id) {
   const editTitle = "éditer"
-
   return `
     <figure data-id="${id}">
       <i class="trash fa-solid fa-trash-can"></i>
@@ -32,92 +42,19 @@ function createModalFigure(imageUrl, title, id) {
   `
 }
 
-//Mettre createFigure et createModalFigure dans une fonction pour éviter les répetitions
-function createFigures() {
-  // Parcourir les works et créer une figure pour chaque work
-  for (let work of works) {
-    // Ajouter la figure à la galerie
-    document.querySelector(".gallery").innerHTML += createFigure(work.imageUrl, work.title, work.id)
-    //ajout de cette ligne pour la modale
-    document.querySelector(".modal-gallery").innerHTML += createModalFigure(work.imageUrl, work.title, work.id)
-  }
+// Fonction pour créer un bouton de catégorie
+function createInput(name, id) {
+  return `
+    <input type="button" value="${name}" data-category-id="${id}">
+  `
+} 
+
+//Fonction pour créer les catégories dans la modale pour l'ajout de travaux 
+function createOptions(id, name) {
+  return `
+    <option value="${name}">${id}</option>
+  `
 }
-
-// Récupérer les données des works depuis l'API
-fetch("http://localhost:5678/api/works")
-  .then(response => response.json())
-  .then(data => {
-    works = data // Stocker les données des works
-    createFigures(createFigure, createModalFigure)
-    // Ajouter les écouteurs d'événements aux icônes "trash"
-    const trashes = document.querySelectorAll(".trash")
-      for (let trash of trashes) {
-      trash.addEventListener("click", function (event) {
-        const id = event.target.parentElement.dataset.id
-        deleteWork(id).then(() => {
-          document.querySelector(`.modal-gallery figure[data-id="${id}"]`).remove()
-          document.querySelector(`.gallery figure[data-id="${id}"]`).remove()
-        })
-      })
-    }
-  })
-
-// Récupérer les données des catégories depuis l'API et créer les boutons correspondants
-fetch("http://localhost:5678/api/categories")
-  .then(response => response.json())
-  .then(categories => {
-    // Parcourir les catégories et créer les boutons correspondants
-    for (let categorie of categories) {
-      const categoriesContainer = document.querySelector(".categories")
-      if (categoriesContainer) {
-        categoriesContainer.innerHTML += createInput(categorie.name, categorie.categoryId)
-      }
-    }
-
-    // Sélectionner le bouton "Tous"
-    const allButton = document.querySelector(".categories input[value='Tous']")
-
-    // Ajouter un écouteur d'événement au bouton "Tous"
-    if (allButton) {
-      allButton.addEventListener("click", function () {
-        document.querySelector(".gallery").innerHTML = ""
-        createFigures(createFigure)
-      })
-    }
-    else {
-      console.error("L'élément 'allButton' n'a pas été trouvé.")
-    }
-    
-    // Vérifier si l'élément avec la classe "categories" existe
-    const categoriesElement = document.querySelector(".categories")
-    if (categoriesElement) {
-      // Sélectionner les boutons de catégorie
-      const categoryButtons = categoriesElement.querySelectorAll("input[type='button']:not([value='Tous'])")
-
-      // Ajouter les valeurs des attributs data-category-id aux boutons
-      // Les valeurs des attributs data-category-id correspondant aux boutons "Objets", "Appartements" et "Hotels & Restaurants"
-      const categoryIds = [1, 2, 3]
-
-      categoryButtons.forEach((button, index) => {
-        button.dataset.categoryId = categoryIds[index]
-      })
-
-      // Ajouter un écouteur d'événement à chaque bouton de catégorie
-      categoryButtons.forEach(button => {
-        button.addEventListener("click", function () {
-          const categoryId = parseInt(button.dataset.categoryId) // Récupérer la categoryId du bouton cliqué
-          const filteredWorks = works.filter(function (work) {
-            return work.categoryId === categoryId
-          })
-          document.querySelector(".gallery").innerHTML = ""
-          //create figures possible?
-          for (let work of filteredWorks) {
-            document.querySelector(".gallery").innerHTML += createFigure(work.imageUrl, work.title, work.id)
-          }
-        })
-      })
-    }
-  })
 
 //Suppresion du token et redirection vers la page d'accueil classique 
 function logout() {
@@ -125,27 +62,34 @@ function logout() {
   window.location.href = "index.html"
 }
 
-// Récupérer le token depuis le localStorage :
-const token = localStorage.getItem("token")
-console.log(token)
 
-// Appliquer les styles si l'utilisateur est connecté.
-if (token !== null) {
-  const editMode = document.querySelector(".edit-mode")// faire apparaitre la barre du haut
-  editMode.style.display = "block"
-  const logoutLink = document.getElementById("logout-link")//faire apparaitre le bouton logout
-    logoutLink.style.display = "block"
-    logoutLink.addEventListener("click", logout)
-  const loginLink = document.getElementById("login-link")//faire disparaitre le bouton login
-    loginLink.style.display = "none"
-  const introLogo = document.querySelector(".intro-logo")//faire apparaitre le logo section intro
-    introLogo.style.display = "block"
-  const portfolioLogo = document.querySelector(".portfolio-logo")//faire apparaitre le logo section portfolio
-    portfolioLogo.style.display = "block"
-    portfolioLogo.style.marginBottom = "90px"
-  const hideCategories = document.querySelector(".categories")//faire disparaitre les catégrories 
-    hideCategories.style.display = "none"
+function userLoged() {
+  // Récupérer le token depuis le localStorage :
+  const token = localStorage.getItem("token")
+  console.log(token)
+
+  // Appliquer les styles si l'utilisateur est connecté.
+  if (token !== null) {
+    const editMode = document.querySelector(".edit-mode")// faire apparaitre la barre du haut
+    editMode.style.display = "block"
+    const logoutLink = document.getElementById("logout-link")//faire apparaitre le bouton logout
+      logoutLink.style.display = "block"
+      logoutLink.addEventListener("click", logout)
+    const loginLink = document.getElementById("login-link")//faire disparaitre le bouton login
+      loginLink.style.display = "none"
+    const introLogo = document.querySelector(".intro-logo")//faire apparaitre le logo section intro
+      introLogo.style.display = "block"
+    const portfolioLogo = document.querySelector(".portfolio-logo")//faire apparaitre le logo section portfolio
+      portfolioLogo.style.display = "block"
+      portfolioLogo.style.marginBottom = "90px"
+    const hideCategories = document.querySelector(".categories")//faire disparaitre les catégrories 
+      hideCategories.style.display = "none"
+  }
 }
+
+userLoged()
+
+/************************************************************MODALE***********************************************************************/
 
 //Faire apparaitre la modale
 let modal = null
@@ -190,29 +134,7 @@ const stopPropagation = function (e) {
 //Ajout de l'eventListenner sur le logo
 document.querySelector(".portfolio-logo").addEventListener("click", displayModal)
 
-// Comment faire des requêtes en utilisant le token ?
-async function deleteWork(id) {
-  await fetch(`http://localhost:5678/api/works/${id}`, {
-    method: "DELETE",
-    headers: {
-      "Authorization": `Bearer ${token}`,
-    },
-  })
-}
-
-//A faire 
-//Rendre possible l'ajout/suppresion de travaux sans recharger la page  --OK Suppression 1/2--
-//Rendre possible l'ajout de travaux 
-//Rendre fonctionnel 'supprimer la galerie' (for of i--?)
-
-//Détails 
-//Background fleche , couleur , (inserer dynamiquement? , voir commentaires,)
-//Apparence modal1 
-//Trouver meilleure image pour modal2?
-//Message d'erreur si +4mo ou mauvais format 
-//Bouton valider passe au vert quand tous les champs /REQUIS\ sont correctement remplis 
-
-//Faire apparaitre la deuxieme modale
+//Faire apparaitre et disparaitre la deuxieme modale
 const addPhotoLink = document.getElementById('add-photo-link')
 const secondModal = document.getElementById('modal2')
 const firstModal = document.getElementById('modal1')
@@ -247,6 +169,8 @@ window.onclick = (event) => {
   }
 }
 
+/*******************************************************FIN MODALE**************************************************************************/
+
 //Ajouter des works 
 const form = document.querySelector(".modal-2-form")
  form.addEventListener("submit", async function (e) {
@@ -254,27 +178,108 @@ const form = document.querySelector(".modal-2-form")
   const formData = new FormData(form)
   const work = await createWork(formData)
   // @TODO: Ajouter le travail dans la liste des travaux
-  let workImage = document.querySelector("#file")
-  workImage = workImage.value
-  let workTitle = document.querySelector("#title")
-  workTitle = workTitle.value
-  let workCategory = document.querySelector("#categorie")
-  workCategory = workCategory.value
- })
+  addToGallery(work)
+  addToModalGallery(work)
+})
 
-async function createWork(formData) {
-  const response = await fetch(`http://localhost:5678/api/works`, {
-    method: "POST",
-    headers: {
-      "Authorization": `Bearer ${token}`
-    },
-    body: formData,
+//Faire apparaitre la miniature dans la modale
+function previewImage() {
+  const workImage = document.getElementById('file')
+  const file = workImage.files[0]
+  const imagePreviewContainer = document.querySelector('.ajout-photo')
+  const workCategory = document.querySelector(".modal-2-form #categorie")
+  const workTitle = document.querySelector(".modal-2-form #title")
+  const modalSubmit = document.querySelector(".modal-submit")
+  
+  if(file.type.match('image.*')){
+    const reader = new FileReader()
+    
+    reader.addEventListener('load', function (event) {
+      const imageUrl = event.target.result
+      const image = new Image()
+      
+      image.addEventListener('load', function() {
+        imagePreviewContainer.innerHTML = '' 
+        imagePreviewContainer.appendChild(image)
+      })
+      
+      image.src = imageUrl
+      image.style.width = '129px'
+      image.style.height = '169px'
+    })
+    
+    reader.readAsDataURL(file)
+  }
+
+  // Écouteur d'événement pour le champ image
+  workImage.addEventListener('input', function() {
+    validateInputs()
   })
-  return await response.json()
+
+  // Écouteur d'événement pour le champ catégorie
+  workCategory.addEventListener('input', function() {
+    validateInputs()
+  })
+
+  // Écouteur d'événement pour le champ titre
+  workTitle.addEventListener('input', function() {
+    validateInputs()
+  })
+
+  function validateInputs() {
+    /*// Vérification de chaque champ d'entrée
+    if (workImage.files[0]) {
+      let showImage = document.querySelector(".ajout-photo")
+      showImage.innerHTML = ""
+    }*/
+    if (workImage.files[0] && workCategory.value && workTitle.value) {
+      modalSubmit.style.backgroundColor = "#1D6154"
+    }
+    else {
+      modalSubmit.style.backgroundColor = "#A7A7A7"
+    }
+  }
+
 }
 
-const sendNewWork = document.querySelector(".modal-submit")
-  sendNewWork.addEventListener("submit", (event) => {
-  event.preventDefault()
-  createWork(workImage, workTitle, workCategory)
-})
+function validateFileSize(event) {
+  const file = event.target.files[0]
+  const maxFileSize = 4 * 1024 * 1024 // 4 Mo en octets
+  const fileTooBig = document.querySelector(".file-too-big")
+
+  if (file && file.size > maxFileSize) {
+    // Afficher un message d'erreur
+    fileTooBig.style.display = "block"
+    event.target.value = ""
+  } else {
+    // Appeler la fonction previewImage si la taille est valide
+    previewImage() 
+  }
+}
+
+
+const deleteAllButton = document.querySelector(".delete-all")
+  deleteAllButton.addEventListener("click", deleteAllWorks)
+  function deleteAllWorks() {
+    for (let work of works) {
+      deleteWork(work.id)
+    }
+    works = [] // Réinitialiser le tableau des travaux après suppression
+    document.querySelector(".modal-gallery").innerHTML = "" // Effacer le contenu de la galerie dans la modale
+    document.querySelector(".gallery").innerHTML = "" // Effacer le contenu de la galerie dans la page principale
+  }
+
+
+//A faire\\ 
+//MODAL1 Rendre fonctionnel 'supprimer la galerie' (for of i--?)
+//MODAL1 deletework a besoin de recharger la page pour être fonctionelle
+//MOZILLA Token fonctionne pas sur mozilla 
+
+//Détails\\ 
+//MODAL2 Background fleche , couleur , (inserer dynamiquement? , voir commentaires,) 
+//MODAL2 Trouver meilleur logo image pour modal2?
+//MODAL1 Apparence modale 1 voir si mieux => max-height: calc(100vh - 30px); + overflow: auto; pour modal + regler param overflow
+//Question à l'utilisateur avant suppression  
+
+//GENERAL\\
+//Renommer classe etc , utiliser plus de fonctions , syntaxe cohérente ("", '', ;, etc)

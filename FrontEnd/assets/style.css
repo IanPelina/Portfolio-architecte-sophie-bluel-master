@@ -465,6 +465,15 @@ form + p:hover {
   padding: 0;
   margin-bottom: 19px;
 }
+#modal2 .modal-wrapper .modal-2-form .ajout-photo .uploaded-img {
+  width: 129px;
+  height: 169px;
+  object-fit: cover;
+}
+#modal2 .modal-wrapper .modal-2-form .ajout-photo .file-too-big {
+  display: none;
+  padding-bottom: 25px;
+}
 #modal2 .modal-wrapper .modal-2-form .modal-2-inputs {
   display: flex;
   flex-direction: column;
