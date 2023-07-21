@@ -77,16 +77,33 @@
             font-size: 1.2em;
             border: none;
             box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
-            width: 237px; //Ajuster bouton
+            width: 237px;
+        }
+        #add-photo-link {
+            display: block;
+            padding: 17px 0;
+            font-size: 1.2em;
+            border: none;
+            box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+            width: 237px;
+            text-decoration: none;
+            font-family: 'Syne';
+	        font-weight: 700;
+	        color: white;
+	        background-color: #1D6154;
+	        margin : 2em auto ;
+	        border-radius: 60px ;
+	        cursor: pointer;
         }
         p {
             color: #D65353;
             padding-bottom: 50px;
+            cursor: pointer;
         }
     }
 }
 
-#modal2 {
+#inner-modal {
     .modal-wrapper {
         max-height: 670px;
         .return-and-closer {
@@ -100,10 +117,10 @@
                 }
             }
         }
-        #title-modal-2 {
+        #title-inner-modal {
             font-size: 1.7rem;
         }
-        .modal-2-form {
+        .inner-modal-form {
             width: 420px;
             margin: 36px auto 32px;
             .ajout-photo {
@@ -115,9 +132,9 @@
                 flex-direction: column;
                 justify-content: center;
                 align-items: center;
-                i {
-                    font-size: 3.4rem;
-                    height: 46px;
+                .image-logo {
+                    width: 58px;
+                    height: 58px;
                     color: #B9C5CC;
                     margin: 28px 0 19px;
                 }
@@ -142,6 +159,7 @@
                    margin-bottom: 19px;
                 }
                 .uploaded-img {
+                    padding-bottom: 10px;
                     width: 129px;
                     height: 169px;
                     object-fit: cover;
@@ -149,9 +167,10 @@
                 .file-too-big {
                     display: none;
                     padding-bottom: 25px;
+                    margin-bottom: 10px;
                 }
             }
-            .modal-2-inputs {
+            .inner-modal-form-inputs {
                 display: flex;
                 flex-direction: column;
                 padding: 30px 0 47px;
@@ -166,7 +185,7 @@
                 .input-categorie {
                     margin-top: 20px;
                 }
-                #categorie {
+                #category {
                     width: 424px;
                     height: 52px;
                     font-size: 1.2em;

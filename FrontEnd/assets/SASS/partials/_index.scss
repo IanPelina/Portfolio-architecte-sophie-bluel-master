@@ -17,6 +17,9 @@ nav ul {
     .nav__link {
         text-decoration: none;
         color: black;
+        &:hover {
+            color: #B1663C;
+        }
     }
     li {
         cursor: pointer;

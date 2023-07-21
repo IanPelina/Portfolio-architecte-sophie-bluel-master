@@ -10,8 +10,9 @@
 	<meta name="description" content="">
 	<link rel="stylesheet" href="./assets/style.css">
 	<script src="https://kit.fontawesome.com/9e7531cdfa.js" crossorigin="anonymous"></script>
-	<script src="assets/api.js" defer></script>
-	<script src="assets/index.js" defer></script>
+	<script src="assets/scripts/api.js" defer></script>
+	<script src="assets/scripts/index.js" defer></script>
+	<script src="assets/scripts/modal.js" defer></script>
 </head>
 <body>
 	<div class="edit-mode">
@@ -27,14 +28,14 @@
 					<ul class="header-links">
 						<li>projets</li>
 						<li>contact</li>
-						<a id="login-link" class="nav__link" href="login.html"><li>login</li></a>
-						<a id="logout-link" class="nav__link" href="index.html"><li>logout</li></a>
+						<li><a id="login-link" class="nav__link" href="login.html">login</a></li>
+						<li><a id="logout-link" class="nav__link" href="index.html">logout</a></li>
 						<li><img src="./assets/icons/instagram.png" alt="Instagram"></li>
 					</ul>
 				</nav>
 			</header>
 			<main>
-				<section id="introduction">
+				<div id="introduction">
 					<figure id="image-and-logo">
 						<img src="./assets/images/sophie-bluel.png" alt="">
 						<div class="intro-logo"><i class="fa-regular fa-pen-to-square"></i>modifier</div>
@@ -45,13 +46,13 @@
 							<p>Chaque projet sera étudié en commun, de façon à mettre en valeur les volumes, les matières et les couleurs dans le respect de l’esprit des lieux et le choix adapté des matériaux. Le suivi du chantier sera assuré dans le souci du détail, le respect du planning et du budget.</p>
 							<p>En cas de besoin, une équipe pluridisciplinaire peut-être constituée : architecte DPLG, décorateur(trice)</p>
 					</article>
-				</section>
+				</div>
 				<section id="portfolio">
 					<div class="portfolio-title-and-logo">
 						<div class="portfolio-title"><h2>Mes Projets</h2></div>
-						<a href="modal1" class="portfolio-logo"><i class="fa-regular fa-pen-to-square"></i>modifier</a>
+						<a href="main-modal" class="portfolio-logo"><i class="fa-regular fa-pen-to-square"></i>modifier</a>
 					</div>
-						<aside id="modal1" class="modal" aria-hidden="true" role="dialog" aria-labelledby="title-modal" style="display: none;"> <!--verifier si ok-->
+						<aside id="main-modal" class="modal" aria-hidden="true" aria-labelledby="title-modal" style="display: none;">
 							<div class="modal-wrapper modal-stop">
 								<div class="modal-closer">
 									<i class="fa-solid fa-xmark closer"></i>
@@ -59,12 +60,12 @@
 								<h3 id="title-modal">Galerie Photo</h3>
 								<div class="modal-gallery">
 								</div>
-								<a id="add-photo-link" href="modal2"><input class="modal-input" type="submit" value="Ajouter une photo"></a>								
+								<a id="add-photo-link" href="inner-modal" class="modal-input">Ajouter une photo</a>
 								<p class="delete-all">Supprimer la galerie</p>
 							</div>
 						</aside>
-						<aside id="modal2" class="modal" aria-hidden="true" role="dialog" aria-labelledby="title-modal-2" style="display: none;"> <!--verifier si ok-->
-							<div class="modal-wrapper modal2-stop">
+						<aside id="inner-modal" class="modal" aria-hidden="true" aria-labelledby="title-inner-modal" style="display: none;">
+							<div class="modal-wrapper inner-modal-stop">
 								<div class="return-and-closer">
 									<div class="modal-return">
 										<i class="fa-solid fa-arrow-left return"></i>
@@ -73,21 +74,20 @@
 										<i class="fa-solid fa-xmark closer"></i>
 									</div>
 								</div>
-								<h3 id="title-modal-2">Ajout Photo</h3>
-								<form class="modal-2-form" method="post">
+								<h3 id="title-inner-modal">Ajout Photo</h3>
+								<form class="inner-modal-form" method="post">
 									<div class="ajout-photo">
-										<i class="fa-regular fa-image"></i>	
+										<img class="image-logo" src="assets/images/picture-svgrepo-com-1.png" alt="logo-image">	
 										<label class="input-file" for="file">+ Ajouter photo</label>
 										<input type="file" id="file" name="image" accept=".jpg, .png" onchange="validateFileSize(event)" required>
 										<p class="ajout-photo-text">jpg, png : 4mo max</p>
 										<p class="file-too-big">La taille du fichier dépasse la limite de 4 Mo.</p>
 									</div>
-									<div class="modal-2-inputs">
+									<div class="inner-modal-form-inputs">
 										<label for="title">Titre</label>
 										<input type="text" name="title" id="title" autocomplete="on" required>
-										<label class="input-categorie" for="categorie">Catégorie</label>
-										<select name="category" id="categorie" required>
-											<option value=""></option>
+										<label class="input-categorie" for="category">Catégorie</label>
+										<select name="category" id="category" required>
 										</select>
 									</div>
 									<input class="modal-submit" type="submit" value="Valider">		
@@ -95,7 +95,6 @@
 							</div>
 						</aside>
 					<div class="categories">
-						<input type="button" value="Tous"> 
 					</div>	
 						<div class="gallery">
 					</div>

@@ -41,8 +41,8 @@ async function login(email, password) {
     if (response.ok) {
         // Extraire les données de la réponse :
         const data = await response.json()
-        // Stocker le token dans le localStorage :
-        localStorage.setItem("token", data.token)
+        // Stocker le token dans le sessionStorage :
+        sessionStorage.setItem("token", data.token)
         // Rediriger l'utilisateur vers la page d'accueil :
         window.location.href = "index.html"
     } else {
