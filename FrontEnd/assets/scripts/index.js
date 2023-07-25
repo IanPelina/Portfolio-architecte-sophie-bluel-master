@@ -67,16 +67,6 @@ async function deleteAndRenderWork() {
   document.querySelector(`.gallery figure[data-id="${id}"]`).remove();
 }
 
-// Filtre les works en fonction de l'identifiant de catégorie spécifié
-function filterWorks(id) {
-  if (!id) {
-    renderFigures();
-  } else {
-    const works = data.works.filter(work => work.categoryId === id);
-    renderFigures(works);
-  }
-}
-
 // Charge les catégories à partir de l'API
 async function loadCategories() {
   data.categories = await getCategories();
@@ -121,6 +111,16 @@ function addFiltersEvents() {
       const { id } = this.dataset;
       filterWorks(Number(id));
     });
+  }
+}
+
+// Filtre les works en fonction de l'identifiant de catégorie spécifié
+function filterWorks(id) {
+  if (!id) {
+    renderFigures();
+  } else {
+    const works = data.works.filter(work => work.categoryId === id);
+    renderFigures(works);
   }
 }
 
