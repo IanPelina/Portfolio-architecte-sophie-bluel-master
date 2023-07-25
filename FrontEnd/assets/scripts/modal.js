@@ -90,14 +90,39 @@ form.addEventListener("submit", async function (e) {
   addDeletionEvents();
 });
 
+const workCategory = document.querySelector(".inner-modal-form #category");
+const workTitle = document.querySelector(".inner-modal-form #title");
+const workImage = document.getElementById("file");
+const modalSubmit = document.querySelector(".modal-submit");
+
+// Écouteur d'événement pour le champ image
+workImage.addEventListener("input", function () {
+  validateInputs();
+});
+
+// Écouteur d'événement pour le champ catégorie
+workCategory.addEventListener("input", function () {
+  validateInputs();
+});
+
+// Écouteur d'événement pour le champ titre
+workTitle.addEventListener("input", function () {
+  validateInputs();
+});
+
+function validateInputs() {
+  // Vérification de chaque champ d'entrée
+  if (workImage.files[0] && Number(workCategory.value) && workTitle.value) {
+    modalSubmit.style.backgroundColor = "#1D6154";
+  } else {
+    modalSubmit.style.backgroundColor = "#A7A7A7";
+  }
+}
+
 //Faire apparaitre la miniature dans la modale
 function previewImage() {
-  const workImage = document.getElementById("file");
   const file = workImage.files[0];
   const imagePreviewContainer = document.querySelector(".ajout-photo");
-  const workCategory = document.querySelector(".inner-modal-form #category");
-  const workTitle = document.querySelector(".inner-modal-form #title");
-  const modalSubmit = document.querySelector(".modal-submit");
 
   if (file.type.match("image.*")) {
     const reader = new FileReader();
@@ -119,31 +144,7 @@ function previewImage() {
     });
     reader.readAsDataURL(file);
   }
-
-  // Écouteur d'événement pour le champ image
-  workImage.addEventListener("input", function () {
-    validateInputs();
-  });
-
-  // Écouteur d'événement pour le champ catégorie
-  workCategory.addEventListener("input", function () {
-    validateInputs();
-  });
-
-  // Écouteur d'événement pour le champ titre
-  workTitle.addEventListener("input", function () {
-    validateInputs();
-  });
-
-  function validateInputs() {
-    // Vérification de chaque champ d'entrée
-    if (workImage.files[0] && workCategory.value && workTitle.value) {
-      modalSubmit.style.backgroundColor = "#1D6154";
-    } else {
-      modalSubmit.style.backgroundColor = "#A7A7A7";
-    }
-  }
-
+  validateInputs()
 }
 
 //Verifier si la  taille ne dépasse pas les 4 mo
@@ -167,10 +168,12 @@ const deleteAllButton = document.querySelector(".delete-all")
 deleteAllButton.addEventListener("click", deleteAllWorks);
 
 async function deleteAllWorks() {
-  const promises = [];
-  for (let work of data.works) {
-    await deleteWork(work.id);
+  const confirmation = confirm("Etes vous certain de vouloir supprimer tous les éléments de la gallerie ?");
+  if (confirmation) {
+    for (let work of data.works) {
+      await deleteWork(work.id);
+    }
+    data.works = [];
+    renderFigures();
   }
-  data.works = [];
-  renderFigures();
 }

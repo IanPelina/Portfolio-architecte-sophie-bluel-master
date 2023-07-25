@@ -22,8 +22,8 @@ async function loadWorks() {
 function renderFigures(works = data.works) {
   const gallery = document.querySelector(".gallery");
   const modalGallery = document.querySelector(".modal-gallery");
-  gallery.innerHTML = String();
-  modalGallery.innerHTML = String();
+  gallery.innerHTML = "";
+  modalGallery.innerHTML = "";
   for (let work of works) {
     createAndRenderFigure(work);
   }
@@ -40,7 +40,7 @@ function createFigure(work, isModal = false) {
   const icons = isModal ? `
     <i class="trash fa-solid fa-trash-can"></i>
     <i class="move fa-solid fa-arrows-up-down-left-right"></i>
-  ` : String();
+  ` : "";
   return `
     <figure data-id="${work.id}">
       ${icons}
@@ -54,6 +54,7 @@ function createFigure(work, isModal = false) {
 function addDeletionEvents() {
   const trashes = document.querySelectorAll(".trash");
   for (let trash of trashes) {
+    //Sécurité pour eviter le double appel à l'api
     trash.removeEventListener("click", deleteAndRenderWork);
     trash.addEventListener("click", deleteAndRenderWork);
   }
@@ -92,7 +93,6 @@ function createFilter(category) {
 // Génère et affiche le sélecteur de catégorie
 function renderSelector(categories = data.categories) {
   const selector = document.querySelector("#category");
-  selector.innerHTML = `<option value="0" disabled selected>---</option>`;
   for (let category of categories) {
     selector.innerHTML += createOption(category);
   }
