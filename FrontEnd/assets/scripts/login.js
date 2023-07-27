@@ -1,4 +1,4 @@
-// Submission du formulaire :
+// Soumission du formulaire :
 document.getElementById("login-form").addEventListener("submit", async function (event) {
     event.preventDefault() // Empêcher le formulaire de se soumettre.
 

@@ -119,8 +119,8 @@ function filterWorks(id) {
   if (!id) {
     renderFigures();
   } else {
-    const works = data.works.filter(work => work.categoryId === id);
-    renderFigures(works);
+    const filtredWorks = data.works.filter(work => work.categoryId === id);
+    renderFigures(filtredWorks);
   }
 }
 
