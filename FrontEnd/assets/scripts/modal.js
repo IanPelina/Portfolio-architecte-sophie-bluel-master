@@ -88,17 +88,21 @@ form.addEventListener("submit", async function (e) {
   data.works.push(work);
   createAndRenderFigure(work);
   addDeletionEvents();
-  //Ferme et vide la modale après validation pour un nouvel ajout
-  secondModal.style.display = "none";
-  imagePreviewContainer.removeChild(image);
-  for (let child of imagePreviewContainer.children) {
-    child.style.display = "block";
-  }
-  fileTooBig.style.display = "none";
-  workTitle.value = "";
-  workCategory.value = "";
-  modalSubmit.style.backgroundColor = "#A7A7A7";
+  clearModal();
 });
+
+//Ferme et vide la modale après validation pour un nouvel ajout
+function clearModal() {
+    secondModal.style.display = "none";
+    imagePreviewContainer.removeChild(image);
+    for (let child of imagePreviewContainer.children) {
+      child.style.display = "block";
+    }
+    fileTooBig.style.display = "none";
+    workTitle.value = "";
+    workCategory.value = "";
+    modalSubmit.style.backgroundColor = "#A7A7A7";
+}
 
 const workCategory = document.querySelector(".inner-modal-form #category");
 const workTitle = document.querySelector(".inner-modal-form #title");
