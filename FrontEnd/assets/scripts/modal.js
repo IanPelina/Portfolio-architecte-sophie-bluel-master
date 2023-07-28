@@ -95,20 +95,12 @@ const workTitle = document.querySelector(".inner-modal-form #title");
 const workImage = document.getElementById("file");
 const modalSubmit = document.querySelector(".modal-submit");
 
-// Écouteur d'événement pour le champ image
-workImage.addEventListener("input", function () {
-  validateInputs();
-});
-
-// Écouteur d'événement pour le champ catégorie
-workCategory.addEventListener("input", function () {
-  validateInputs();
-});
-
-// Écouteur d'événement pour le champ titre
-workTitle.addEventListener("input", function () {
-  validateInputs();
-});
+const inputs = [workCategory, workTitle, workImage]
+  for (let input of inputs) {
+    input.addEventListener("input", function () {
+      validateInputs();
+    });
+  }
 
 function validateInputs() {
   // Vérification de chaque champ d'entrée
