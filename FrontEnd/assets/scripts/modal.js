@@ -88,6 +88,16 @@ form.addEventListener("submit", async function (e) {
   data.works.push(work);
   createAndRenderFigure(work);
   addDeletionEvents();
+  //Ferme et vide la modale après validation pour un nouvel ajout
+  secondModal.style.display = "none";
+  imagePreviewContainer.removeChild(image);
+  for (let child of imagePreviewContainer.children) {
+    child.style.display = "block";
+  }
+  fileTooBig.style.display = "none";
+  workTitle.value = "";
+  workCategory.value = "";
+  modalSubmit.style.backgroundColor = "#A7A7A7";
 });
 
 const workCategory = document.querySelector(".inner-modal-form #category");
@@ -111,17 +121,18 @@ function validateInputs() {
   }
 }
 
+const imagePreviewContainer = document.querySelector(".ajout-photo");
+const image = new Image();
+
 //Faire apparaitre la miniature dans la modale
 function previewImage() {
   const file = workImage.files[0];
-  const imagePreviewContainer = document.querySelector(".ajout-photo");
 
   if (file.type.match("image.*")) {
     const reader = new FileReader();
 
     reader.addEventListener("load", function (event) {
       const imageUrl = event.target.result;
-      const image = new Image();
 
       image.addEventListener("load", function () {
         for (let child of imagePreviewContainer.children) {
@@ -139,11 +150,12 @@ function previewImage() {
   validateInputs()
 }
 
+const fileTooBig = document.querySelector(".file-too-big");
+
 //Verifier si la  taille ne dépasse pas les 4 mo
 function validateFileSize(event) {
   const file = event.target.files[0];
   const maxFileSize = 4 * 1024 * 1024; // 4 Mo en octets
-  const fileTooBig = document.querySelector(".file-too-big");
 
   if (file && file.size > maxFileSize) {
     // Afficher un message d'erreur
