@@ -1,3 +1,5 @@
+const API_URL = "http://localhost:5678/api";
+
 // Soumission du formulaire :
 document.getElementById("login-form").addEventListener("submit", async function (event) {
     event.preventDefault() // Empêcher le formulaire de se soumettre.
