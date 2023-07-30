@@ -91,42 +91,30 @@ form.addEventListener("submit", async function (e) {
   clearModal();
 });
 
-//Ferme et vide la modale après validation pour un nouvel ajout
-function clearModal() {
-    secondModal.style.display = "none";
-    imagePreviewContainer.removeChild(image);
-    for (let child of imagePreviewContainer.children) {
-      child.style.display = "block";
-    }
-    fileTooBig.style.display = "none";
-    workTitle.value = "";
-    workCategory.value = "";
-    modalSubmit.style.backgroundColor = "#A7A7A7";
-}
+//Vérifications avant l'ajout de nouveaux travaux :
 
+const fileTooBig = document.querySelector(".file-too-big");
+const imagePreviewContainer = document.querySelector(".ajout-photo");
+const image = new Image();
 const workCategory = document.querySelector(".inner-modal-form #category");
 const workTitle = document.querySelector(".inner-modal-form #title");
 const workImage = document.getElementById("file");
 const modalSubmit = document.querySelector(".modal-submit");
 
-const inputs = [workCategory, workTitle, workImage]
-  for (let input of inputs) {
-    input.addEventListener("input", function () {
-      validateInputs();
-    });
-  }
+//Verifier si la  taille ne dépasse pas les 4 mo
+function validateFileSize(event) {
+  const file = event.target.files[0];
+  const maxFileSize = 4 * 1024 * 1024; // 4 Mo en octets
 
-function validateInputs() {
-  // Vérification de chaque champ d'entrée
-  if (workImage.files[0] && Number(workCategory.value) && workTitle.value) {
-    modalSubmit.style.backgroundColor = "#1D6154";
+  if (file && file.size > maxFileSize) {
+    // Afficher un message d'erreur
+    fileTooBig.style.display = "block";
+    event.target.value = "";
   } else {
-    modalSubmit.style.backgroundColor = "#A7A7A7";
+    // Appeler la fonction previewImage si la taille est valide
+    previewImage();
   }
 }
-
-const imagePreviewContainer = document.querySelector(".ajout-photo");
-const image = new Image();
 
 //Faire apparaitre la miniature dans la modale
 function previewImage() {
@@ -151,24 +139,36 @@ function previewImage() {
     });
     reader.readAsDataURL(file);
   }
-  validateInputs()
 }
 
-const fileTooBig = document.querySelector(".file-too-big");
-
-//Verifier si la  taille ne dépasse pas les 4 mo
-function validateFileSize(event) {
-  const file = event.target.files[0];
-  const maxFileSize = 4 * 1024 * 1024; // 4 Mo en octets
-
-  if (file && file.size > maxFileSize) {
-    // Afficher un message d'erreur
-    fileTooBig.style.display = "block";
-    event.target.value = "";
-  } else {
-    // Appeler la fonction previewImage si la taille est valide
-    previewImage();
+//Création d'un tableau pour stocker les inputs
+const inputs = [workCategory, workTitle, workImage]
+  for (let input of inputs) {
+    input.addEventListener("input", function () {
+      validateInputs();
+    });
   }
+
+// Vérification de chaque champ d'entrée
+function validateInputs() {
+  if (workImage.files[0] && Number(workCategory.value) && workTitle.value) {
+    modalSubmit.style.backgroundColor = "#1D6154";
+  } else {
+    modalSubmit.style.backgroundColor = "#A7A7A7";
+  }
+}
+
+//Ferme et vide la modale après validation pour un nouvel ajout
+function clearModal() {
+    secondModal.style.display = "none";
+    imagePreviewContainer.removeChild(image);
+    for (let child of imagePreviewContainer.children) {
+      child.style.display = "block";
+    }
+    fileTooBig.style.display = "none";
+    workTitle.value = "";
+    workCategory.value = "";
+    modalSubmit.style.backgroundColor = "#A7A7A7";
 }
 
 //Supprimer toute la galerie
