@@ -10,9 +10,9 @@
 	<meta name="description" content="">
 	<link rel="stylesheet" href="FrontEnd/assets/style.css">
 	<script src="https://kit.fontawesome.com/9e7531cdfa.js" crossorigin="anonymous"></script>
-	<script src="assets/scripts/api.js" defer></script>
-	<script src="assets/scripts/index.js" defer></script>
-	<script src="assets/scripts/modal.js" defer></script>
+	<script src="FrontEnd/assets/scripts/api.js" defer></script>
+	<script src="FrontEnd/assets/scripts/index.js" defer></script>
+	<script src="FrontEnd/assets/scripts/modal.js" defer></script>
 </head>
 <body>
 	<div class="edit-mode">
@@ -30,14 +30,14 @@
 						<li>contact</li>
 						<li><a id="login-link" class="nav__link" href="login.html">login</a></li>
 						<li><a id="logout-link" class="nav__link" href="index.html">logout</a></li>
-						<li><img src="./assets/icons/instagram.png" alt="Instagram"></li>
+						<li><img src="FrontEnd/assets/icons/instagram.png" alt="Instagram"></li>
 					</ul>
 				</nav>
 			</header>
 			<main>
 				<div id="introduction">
 					<figure id="image-and-logo">
-						<img src="./assets/images/sophie-bluel.png" alt="">
+						<img src="FrontEnd/assets/images/sophie-bluel.png" alt="">
 						<div class="intro-logo"><i class="fa-regular fa-pen-to-square"></i>modifier</div>
 					</figure>
 					<article>
@@ -77,7 +77,7 @@
 								<h3 id="title-inner-modal">Ajout Photo</h3>
 								<form class="inner-modal-form" method="post">
 									<div class="ajout-photo">
-										<img class="image-logo" src="assets/images/picture-svgrepo-com-1.png" alt="logo-image">	
+										<img class="image-logo" src="FrontEnd/assets/images/picture-svgrepo-com-1.png" alt="logo-image">	
 										<label class="input-file" for="file">+ Ajouter photo</label>
 										<input type="file" id="file" name="image" accept=".jpg, .png" onchange="validateFileSize(event)" required>
 										<p class="ajout-photo-text">jpg, png : 4mo max</p>
