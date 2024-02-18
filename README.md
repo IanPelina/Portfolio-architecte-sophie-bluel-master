@@ -1,8 +1,14 @@
 # Portfolio de l'architecte Sophie Bluel
+## 6ème projet de la formation
 
-6ème projet de la formation
+![image](https://portfolio.bestplacestudio.fr/static/media/sophie-bluel.466bab9741c875ac52c6.png)
 
-Mission: Créer une page web dynamique avec JavaScript.
+## Contexte: 
+Vous travaillez comme développeur front-end pour l’agence ArchiWebos<br> 
+sur la conception d’un site portfolio d’une architecte d’intérieur.
+
+## Mission: 
+Créer une page web dynamique avec JavaScript.
 
 <h2>Étapes du projet:</h2>
 
