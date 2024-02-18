@@ -1,5 +1,18 @@
-# Portfolio-architecte-sophie-bluel-master<br><br>
-<h2>1. Lancer npm start depuis le fichier "README.md" du dossier BackEnd</h2><br>
-<h2>2. Login:</h2>
-<h3>Identifiants: sophie.bluel@test.tld</h3>
-<h3>Mot de passe: S0phie</h3>
+# Portfolio de l'architecte Sophie Bluel
+
+6ème projet de la formation
+
+Mission: Créer une page web dynamique avec JavaScript.
+
+<h2>Étapes du projet:</h2>
+
+- Créez la page de présentation des travaux à partir du HTML existant<br>
+  . Étape 1.1 : Récupération des travaux depuis le back-end<br>
+  . Étape 1.2 : Réalisation du filtre des travaux
+- Coder la page de connexion<br>
+  . Étape 2.1 : Intégration du design de la page de formulaire<br>
+  . Étape 2.2 : Authentification de l’utilisateur
+- Ajouter la modale<br>
+  . Étape 3.1 : Ajout de la fenêtre modale<br>
+  . Étape 3.2 : Suppression de travaux existants<br>
+  . Étape 3.3 : Envoi d’un nouveau projet au back-end via le formulaire de la modale
