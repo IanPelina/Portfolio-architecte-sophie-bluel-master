@@ -1,5 +1,4 @@
 # Portfolio de l'architecte Sophie Bluel
-## 6ème projet de la formation
 
 ![image](https://portfolio.bestplacestudio.fr/static/media/sophie-bluel.466bab9741c875ac52c6.png)
 
